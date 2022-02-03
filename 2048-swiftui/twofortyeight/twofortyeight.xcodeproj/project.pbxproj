@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		163B5F4B2420570600D1F74E /* StateTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B5F492420570600D1F74E /* StateTracker.swift */; };
 		163B5F4C2420570600D1F74E /* GameStateTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163B5F4A2420570600D1F74E /* GameStateTracker.swift */; };
 		1644B1C72420E29800621F74 /* GameStateTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1644B1C62420E29800621F74 /* GameStateTrackerTests.swift */; };
+		1E5FD51227AC75C900E9CAF8 /* LofeltHaptics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5FD51027AC757300E9CAF8 /* LofeltHaptics.xcframework */; };
+		1E5FD51327AC75C900E9CAF8 /* LofeltHaptics.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5FD51027AC757300E9CAF8 /* LofeltHaptics.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1E5FD51827AC7C1C00E9CAF8 /* Achievement_1.haptic in Resources */ = {isa = PBXBuildFile; fileRef = 1E5FD51627AC7C1C00E9CAF8 /* Achievement_1.haptic */; };
+		1E5FD51927AC7C1C00E9CAF8 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E5FD51727AC7C1C00E9CAF8 /* Contents.json */; };
 		EB2AE08D2328153200A0D911 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2AE08C2328153200A0D911 /* GameViewController.swift */; };
 		EB2AE08F232826AE00A0D911 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2AE08E232826AE00A0D911 /* Swipe.swift */; };
 		EB33775A23330C7A000D8850 /* HeaderBarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB33775923330C7A000D8850 /* HeaderBarTitle.swift */; };
@@ -65,10 +69,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1E5FD51427AC75C900E9CAF8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E5FD51327AC75C900E9CAF8 /* LofeltHaptics.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		163B5F492420570600D1F74E /* StateTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = StateTracker.swift; sourceTree = "<group>"; tabWidth = 4; };
 		163B5F4A2420570600D1F74E /* GameStateTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GameStateTracker.swift; sourceTree = "<group>"; tabWidth = 4; };
 		1644B1C62420E29800621F74 /* GameStateTrackerTests.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GameStateTrackerTests.swift; sourceTree = "<group>"; tabWidth = 4; };
+		1E5FD51027AC757300E9CAF8 /* LofeltHaptics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = LofeltHaptics.xcframework; sourceTree = "<group>"; };
+		1E5FD51627AC7C1C00E9CAF8 /* Achievement_1.haptic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Achievement_1.haptic; sourceTree = "<group>"; };
+		1E5FD51727AC7C1C00E9CAF8 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		EB2AE08C2328153200A0D911 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EB2AE08E232826AE00A0D911 /* Swipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
 		EB33775923330C7A000D8850 /* HeaderBarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBarTitle.swift; sourceTree = "<group>"; };
@@ -120,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E5FD51227AC75C900E9CAF8 /* LofeltHaptics.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +169,23 @@
 				163B5F4A2420570600D1F74E /* GameStateTracker.swift */,
 			);
 			path = State;
+			sourceTree = "<group>";
+		};
+		1E5FD50F27AC754600E9CAF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E5FD51027AC757300E9CAF8 /* LofeltHaptics.xcframework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		1E5FD51527AC7C1C00E9CAF8 /* Achievement_1.haptic.dataset */ = {
+			isa = PBXGroup;
+			children = (
+				1E5FD51627AC7C1C00E9CAF8 /* Achievement_1.haptic */,
+				1E5FD51727AC7C1C00E9CAF8 /* Contents.json */,
+			);
+			path = Achievement_1.haptic.dataset;
 			sourceTree = "<group>";
 		};
 		EB74889B2328725D0043DF64 /* UIElements */ = {
@@ -184,6 +223,7 @@
 		EBC999BF2325932E006BA2E7 = {
 			isa = PBXGroup;
 			children = (
+				1E5FD50F27AC754600E9CAF8 /* Frameworks */,
 				EBC999CA2325932E006BA2E7 /* twofortyeight */,
 				EBC999E123259331006BA2E7 /* twofortyeightTests */,
 				EBC999EC23259331006BA2E7 /* twofortyeightUITests */,
@@ -211,6 +251,7 @@
 				EBC999CB2325932E006BA2E7 /* AppDelegate.swift */,
 				EBC999CD2325932E006BA2E7 /* SceneDelegate.swift */,
 				EBC999D123259330006BA2E7 /* Assets.xcassets */,
+				1E5FD51527AC7C1C00E9CAF8 /* Achievement_1.haptic.dataset */,
 				EBC999D623259330006BA2E7 /* LaunchScreen.storyboard */,
 				EBC999D923259330006BA2E7 /* Info.plist */,
 				EBC999D323259330006BA2E7 /* Preview Content */,
@@ -339,6 +380,7 @@
 				EBC999C42325932E006BA2E7 /* Sources */,
 				EBC999C52325932E006BA2E7 /* Frameworks */,
 				EBC999C62325932E006BA2E7 /* Resources */,
+				1E5FD51427AC75C900E9CAF8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -434,6 +476,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E5FD51927AC7C1C00E9CAF8 /* Contents.json in Resources */,
+				1E5FD51827AC7C1C00E9CAF8 /* Achievement_1.haptic in Resources */,
 				EBC999D823259330006BA2E7 /* LaunchScreen.storyboard in Resources */,
 				EBC999D523259330006BA2E7 /* Preview Assets.xcassets in Resources */,
 				EBC999D223259330006BA2E7 /* Assets.xcassets in Resources */,
