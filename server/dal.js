@@ -21,4 +21,14 @@ export async function getConfigDAL(client, config_id) {
         throw err;
     }
 }
+export async function delConfigDAL(client, config_id, data) {
+    try{
+        let dataStr = JSON.stringify(data);
+        let wrapper = await client.del(config_id, dataStr);
+        console.log(wrapper);
+    } catch(err) {
+        // console.log(err);
+        throw err;
+    }
+}
 
