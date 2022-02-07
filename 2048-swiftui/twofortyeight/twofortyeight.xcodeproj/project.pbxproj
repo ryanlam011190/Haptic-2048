@@ -703,9 +703,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "twofortyeight/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 35H2RPT2B4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = twofortyeight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -724,9 +725,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "twofortyeight/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 35H2RPT2B4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = twofortyeight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
