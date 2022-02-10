@@ -12,6 +12,7 @@ struct GameView: View {
                 self.viewModel.undo()
             }, undoEnabled: self.viewModel.isUndoable)
             GoalText()
+			MaxScore(viewModel: viewModel)
             Board(board: viewModel.state.board, addedTile: viewModel.addedTile)
             Moves(viewModel.numberOfMoves)
         }

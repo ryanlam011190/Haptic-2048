@@ -9,6 +9,8 @@ class GameViewModel: ObservableObject {
     private var haptics: LofeltHaptics?
     private var hapticClip: NSDataAsset?
     private var hapticData: NSString?
+	
+	public let MAX_SCORE = 10
   
     @Published var isGameOver = false
     private(set) var addedTile: (Int, Int)? = nil {
@@ -28,7 +30,7 @@ class GameViewModel: ObservableObject {
         didSet {
             bestScore = max(bestScore, state.score)
             storage.save(score: state.score)
-            isGameOver = engine.isGameOver(state.board)
+			isGameOver = (state.score > MAX_SCORE || engine.isGameOver(state.board))
             storage.save(board: state.board)
         }
     }

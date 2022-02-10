@@ -50,6 +50,7 @@
 		EBE7692D23288B5A00BEED35 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7692C23288B5A00BEED35 /* LocalStorage.swift */; };
 		EBE769332329A2F100BEED35 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE769322329A2F100BEED35 /* ArrayExtensions.swift */; };
 		EBFADE512328587F00E53800 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFADE502328587F00E53800 /* GameView.swift */; };
+		FD4754E127B4F2E100A4605E /* MaxScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4754E027B4F2E100A4605E /* MaxScore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		EBE7692C23288B5A00BEED35 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		EBE769322329A2F100BEED35 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		EBFADE502328587F00E53800 /* GameView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		FD4754E027B4F2E100A4605E /* MaxScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxScore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 				EB660328232C450900AD5455 /* GoalText.swift */,
 				EB33775923330C7A000D8850 /* HeaderBarTitle.swift */,
 				EB33775B2333244B000D8850 /* Moves.swift */,
+				FD4754E027B4F2E100A4605E /* MaxScore.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				EBC999CC2325932E006BA2E7 /* AppDelegate.swift in Sources */,
 				EB2AE08F232826AE00A0D911 /* Swipe.swift in Sources */,
 				EBC99A0723271AB4006BA2E7 /* GameEngine.swift in Sources */,
+				FD4754E127B4F2E100A4605E /* MaxScore.swift in Sources */,
 				EB660323232A735C00AD5455 /* IntExtensions.swift in Sources */,
 				EB74889823286BF80043DF64 /* GameViewModel.swift in Sources */,
 				EB660325232AA3B100AD5455 /* ColorExtensions.swift in Sources */,
