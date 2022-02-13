@@ -10,7 +10,16 @@ export async function setConfigDAL(client, config_id, data) {
         throw err;
     }
 }
-
+export async function updateConfigDAL(client, config_id, data) {
+    try{
+        let dataStr = JSON.stringify(data);
+        let wrapper = await client.set(config_id, dataStr);
+        console.log(wrapper);
+    } catch(err) {
+        // console.log(err);
+        throw err;
+    }
+}
 export async function getConfigDAL(client, config_id) {
     try {
         let reply = await client.get(config_id);

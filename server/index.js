@@ -5,7 +5,7 @@
 import express from "express";
 import * as fetch from "node-fetch";
 import redis from "redis";
-import { setConfigDAL, getConfigDAL, delConfigDAL } from "./dal.js";
+import { setConfigDAL, getConfigDAL, delConfigDAL, updateConfigDAL } from "./dal.js";
 
 
 
@@ -30,6 +30,19 @@ async function setConfig(req, res, next) {
 
     try {
         let wrapper = await setConfigDAL(client, config_id, config_body);
+        console.log(wrapper);
+        res.status(200);
+        res.send("OK");
+    } catch(err) {
+        console.log(err);
+        throw err;
+    }
+}
+async function updateConfig(req, res, next) {
+    const { config_id, config_body } = req.body;
+
+    try {
+        let wrapper = await updateConfigDAL(client, config_id, config_body);
         console.log(wrapper);
         res.status(200);
         res.send("OK");
@@ -70,7 +83,9 @@ async function delConfig(req, res, next) {
 
 app.post('/config/setConfig', setConfig);
 app.get('/config/getConfig', getConfig);
-app.get('/config/delConfig', delConfig)
+app.get('/config/delConfig', delConfig);
+app.get('/config/updateConfig', updateConfig)
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
