@@ -25,11 +25,11 @@ app.use((req, res, next) => {
     next();
 });
 
-async function setConfig(req, res, next) {
+async function delConfig(req, res, next) {
     const { config_id, config_body } = req.body;
 
     try {
-        let wrapper = await setConfigDAL(client, config_id, config_body);
+        let wrapper = await delConfigDAL(client, config_id, config_body);
         console.log(wrapper);
         res.status(200);
         res.send("OK");
@@ -38,11 +38,11 @@ async function setConfig(req, res, next) {
         throw err;
     }
 }
-async function updateConfig(req, res, next) {
+async function setConfig(req, res, next) {
     const { config_id, config_body } = req.body;
 
     try {
-        let wrapper = await updateConfigDAL(client, config_id, config_body);
+        let wrapper = await setConfigDAL(client, config_id, config_body);
         console.log(wrapper);
         res.status(200);
         res.send("OK");
@@ -65,12 +65,11 @@ async function getConfig(req, res, next) {
         throw err;
     }
 }
-
-async function delConfig(req, res, next) {
+async function updateConfig(req, res, next) {
     const { config_id, config_body } = req.body;
 
     try {
-        let wrapper = await delConfigDAL(client, config_id, config_body);
+        let wrapper = await updateConfigDAL(client, config_id, config_body);
         console.log(wrapper);
         res.status(200);
         res.send("OK");
@@ -80,11 +79,10 @@ async function delConfig(req, res, next) {
     }
 }
 
-
-app.post('/config/setConfig', setConfig);
-app.get('/config/getConfig', getConfig);
 app.get('/config/delConfig', delConfig);
 app.get('/config/updateConfig', updateConfig)
+app.post('/config/setConfig', setConfig);
+app.get('/config/getConfig', getConfig);
 
 
 app.listen(PORT, () => {
