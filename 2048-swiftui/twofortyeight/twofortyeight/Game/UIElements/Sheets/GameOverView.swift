@@ -7,7 +7,7 @@ struct GameOverView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            HeaderBarTitle(title: "GAME OVER")
+            HeaderBarTitle(title: "GAME ENDED")
             Text("YOU SCORED:")
                 .font(.system(size: 20, weight: .black, design: .rounded))
                 .foregroundColor(.tileEight)
@@ -19,6 +19,8 @@ struct GameOverView: View {
             Text("Number of moves: \(moves)")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .foregroundColor(.white50)
+			
+			Text("[Survey Link](https://www.surveymonkey.com/r/69HQVW9)")
             
             Group {
                 ActionButton(title: "NEW GAME", action: action)
