@@ -1,18 +1,20 @@
-// const express = require('express');
-// const fetch = require('node-fetch');
-// const redis = require('redis');
-
 import express from "express";
-import * as fetch from "node-fetch";
 import redis from "redis";
-import { setConfigDAL, getConfigDAL } from "./dal.js";
-
+import { setConfig, getConfig, delConfig, updateConfig } from "./requests/configRequests.js";
+import { setSchema, getSchema, delSchema, updateSchema } from "./requests/schemaRequests.js";
+import { setSurvey, getSurvey } from "./requests/surveyRequests.js";
 
 
 const PORT = process.env.PORT || 5000;
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
-const client = redis.createClient(REDIS_PORT);
+let config = {};
+if(process.env.NODE_ENV != "development") {
+    config["url"] = "redis://:p301824da061453386cd783a736ed5284d7a5d793523606dfafbd7b57c54bdcd9@ec2-50-19-244-202.compute-1.amazonaws.com:17849";
+} else {
+    console.log("Dev mode running...");
+}
+
+const client = redis.createClient(config);
 client.connect();
 client.on("connect", () => {
     console.log("Connected to Redis...");
@@ -25,37 +27,65 @@ app.use((req, res, next) => {
     next();
 });
 
-async function setConfig(req, res, next) {
-    const { config_id, config_body } = req.body;
+app.post('/config/getConfig', getConfigHandle);
 
-    try {
-        let wrapper = await setConfigDAL(client, config_id, config_body);
-        console.log(wrapper);
-        res.status(200);
-        res.send("OK");
-    } catch(err) {
-        console.log(err);
-        throw err;
-    }
-}
+app.post('/config/setConfig', setConfigHandle);
+app.post('/config/delConfig', delConfigHandle);
+app.post('/config/updateConfig', updateConfigHandle);
 
-async function getConfig(req, res, next) {
-    const { config_id } = req.body;
+app.post('/schema/getSchema', getSchemaHandle);
 
-    try {
-        let reply = await getConfigDAL(client, config_id);
-        console.log(reply);
-        res.status(200);
-        res.send(reply);
-    } catch(err) {
-        console.log(err);
-        throw err;
-    }
-}
+app.post('/schema/setSchema', setSchemaHandle);
+app.post('/schema/delSchema', delSchemaHandle);
+app.post('/schema/updateSchema', updateSchemaHandle);
 
-app.post('/config/setConfig', setConfig);
-app.get('/config/getConfig', getConfig);
+app.post('/survey/getSurvey', getSurveyHandle);
+
+app.post('/survey/setSurvey', setSurveyHandle);
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
+
+
+
+async function setConfigHandle(req, res, next) {
+    setConfig(req, res, client, []);
+}
+
+async function getConfigHandle(req, res, next) {
+    getConfig(req, res, client, []);
+}
+
+async function delConfigHandle(req, res, next) {
+    delConfig(req, res, client);
+}
+
+async function updateConfigHandle(req, res, next) {
+    updateConfig(req, res, client);
+}
+
+async function setSchemaHandle(req, res, next) {
+    setSchema(req, res, client);
+}
+
+async function getSchemaHandle(req, res, next) {
+    getSchema(req, res, client, []);
+}
+
+async function delSchemaHandle(req, res, next) {
+    delSchema(req, res, client);
+}
+
+async function updateSchemaHandle(req, res, next) {
+    updateSchema(req, res, client);
+}
+
+async function setSurveyHandle(req, res, next) {
+    setSurvey(req, res, client);
+}
+
+async function getSurveyHandle(req, res, next) {
+    getSurvey(req, res, client, []);
+}
+
