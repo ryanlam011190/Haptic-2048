@@ -10,7 +10,7 @@ class GameViewModel: ObservableObject {
     private var hapticClip: NSDataAsset?
     private var hapticData: NSString?
 	
-	public let MAX_SCORE = 10
+	public var MAX_SCORE = 10
   
     @Published var isGameOver = false
     private(set) var addedTile: (Int, Int)? = nil {
@@ -50,7 +50,44 @@ class GameViewModel: ObservableObject {
         if let hapticClip = self.hapticClip {
             self.hapticData = NSString(data: hapticClip.data , encoding: String.Encoding.utf8.rawValue)
         }
+		
+		getConfig()
     }
+	
+	func getConfig() {
+		let url = URL(string: "https://haptics-test.herokuapp.com/config/getConfig")!
+		var request = URLRequest(url: url)
+		let config_id = "config_41110"
+		let bodyData = try? JSONSerialization.data(
+			withJSONObject: [
+				"config_id": config_id
+			],
+			options: []
+		)
+		request.httpMethod = "POST"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.httpBody = bodyData
+		
+		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+			
+			guard let data = data, error == nil else {
+				return
+			}
+
+			do {
+				let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+				if let dictionary = jsonObject {
+					if let str = dictionary["max_score"] as? String, let max_score = Int(str) {
+						self.MAX_SCORE = Int(max_score)
+					}
+				}
+			} catch let parseError {
+				print("JSON Error \(parseError.localizedDescription)")
+			}
+			
+		}
+		task.resume()
+	}
     
     func start() {
         if state.board.isMatrixEmpty { reset() }
