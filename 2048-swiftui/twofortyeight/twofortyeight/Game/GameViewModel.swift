@@ -7,7 +7,6 @@ class GameViewModel: ObservableObject {
     private(set) var storage: Storage
     private(set) var stateTracker: StateTracker
     private var haptics: LofeltHaptics?
-    private var hapticClip: NSDataAsset?
     private var hapticData: NSString?
 	
 	public var MAX_SCORE = 10
@@ -41,23 +40,13 @@ class GameViewModel: ObservableObject {
         self.stateTracker = stateTracker
         self.state = stateTracker.last
         self.bestScore = max(storage.bestScore, storage.score)
-        do {
-            self.haptics = try LofeltHaptics.init()
-        } catch let error{
-            print("Engine Creation Error: \(error)")
-        }
-        self.hapticClip = NSDataAsset(name: "Achievement_1.haptic")
-        if let hapticClip = self.hapticClip {
-            self.hapticData = NSString(data: hapticClip.data , encoding: String.Encoding.utf8.rawValue)
-        }
-		
 		getConfig()
     }
 	
 	func getConfig() {
 		let url = URL(string: "https://haptics-test.herokuapp.com/config/getConfig")!
 		var request = URLRequest(url: url)
-		let config_id = "config_41110"
+		let config_id = "config_56279"
 		let bodyData = try? JSONSerialization.data(
 			withJSONObject: [
 				"config_id": config_id
@@ -80,6 +69,10 @@ class GameViewModel: ObservableObject {
 					if let str = dictionary["max_score"] as? String, let max_score = Int(str) {
 						self.MAX_SCORE = Int(max_score)
 					}
+                    print(dictionary)
+                    if let str = dictionary["haptic_file"] as? String, let url = URL(string: str) {
+                        self.setupHaptics(url: url)
+                    }
 				}
 			} catch let parseError {
 				print("JSON Error \(parseError.localizedDescription)")
@@ -91,6 +84,28 @@ class GameViewModel: ObservableObject {
     
     func start() {
         if state.board.isMatrixEmpty { reset() }
+    }
+    
+    func setupHaptics(url: URL) {
+        let downloadTask = URLSession.shared.downloadTask(with: url) {
+            urlOrNil, responseOrNil, errorOrNil in
+            // check for and handle errors:
+            // * errorOrNil should be nil
+            // * responseOrNil should be an HTTPURLResponse with statusCode in 200..<299
+            
+            guard let fileURL = urlOrNil else { return }
+            do {
+                do {
+                    self.haptics = try LofeltHaptics.init()
+                } catch let error{
+                    print("Lofelt Haptics Engine Creation Error: \(error)")
+                }
+                try self.hapticData = NSString(contentsOf: fileURL, encoding: String.Encoding.utf8.rawValue)
+            } catch {
+                print ("Error Downloading Haptic from Aws: \(error)")
+            }
+        }
+        downloadTask.resume()
     }
     
     func addNumber() {
@@ -115,6 +130,7 @@ class GameViewModel: ObservableObject {
             print("unable to use haptics object")
             return
         }
+        
         do {
             try haptics.load(hapticData! as String)
             // Play audio and haptics (audio must be played first).
