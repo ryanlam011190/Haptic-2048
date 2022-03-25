@@ -43,7 +43,7 @@ extension GameView {
     
     private func GameOver() -> some View {
         EmptyView().sheet(isPresented: $viewModel.isGameOver) {
-            GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves) {
+            GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.surveyLink!) {
                 self.viewModel.reset()
             }
         }

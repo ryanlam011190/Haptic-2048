@@ -7,11 +7,18 @@ class GameViewModel: ObservableObject {
     private(set) var storage: Storage
     private(set) var stateTracker: StateTracker
     private var haptics: LofeltHaptics?
-    private var hapticData: NSString?
+    private var hapticDataShort: NSString?
+    private var hapticDataLong: NSString?
+    public var surveyLink: String?
 	
 	public var MAX_SCORE = 10
   
-    @Published var isGameOver = false
+    @Published var isGameOver = false {
+        didSet {
+            if isGameOver { self.playHaptic(hapticData: self.hapticDataLong) }
+        }
+    }
+    
     private(set) var addedTile: (Int, Int)? = nil {
         didSet { UIImpactFeedbackGenerator().impactOccurred() }
     }
@@ -40,13 +47,13 @@ class GameViewModel: ObservableObject {
         self.stateTracker = stateTracker
         self.state = stateTracker.last
         self.bestScore = max(storage.bestScore, storage.score)
-		getConfig()
+        getConfig()
     }
 	
 	func getConfig() {
 		let url = URL(string: "https://haptics-test.herokuapp.com/config/getConfig")!
 		var request = URLRequest(url: url)
-		let config_id = "config_56279"
+		let config_id = "config_24532"
 		let bodyData = try? JSONSerialization.data(
 			withJSONObject: [
 				"config_id": config_id
@@ -70,8 +77,16 @@ class GameViewModel: ObservableObject {
 						self.MAX_SCORE = Int(max_score)
 					}
                     print(dictionary)
-                    if let str = dictionary["haptic_file"] as? String, let url = URL(string: str) {
-                        self.setupHaptics(url: url)
+                    if let str = dictionary["short_haptics_file"] as? String,
+                        let shortUrl = URL(string: str),
+                        let str1 = dictionary["long_haptics_file"] as? String,
+                        let longUrl = URL(string: str1) {
+                        self.setupHaptics(shortUrl: shortUrl, longUrl: longUrl)
+                    }
+                    if let str = dictionary["survey_link"] as? String {
+                        self.surveyLink = str
+                    } else {
+                        self.surveyLink = "https://www.surveymonkey.com/r/69HQVW9"
                     }
 				}
 			} catch let parseError {
@@ -86,8 +101,14 @@ class GameViewModel: ObservableObject {
         if state.board.isMatrixEmpty { reset() }
     }
     
-    func setupHaptics(url: URL) {
-        let downloadTask = URLSession.shared.downloadTask(with: url) {
+    func setupHaptics(shortUrl: URL, longUrl: URL) {
+        do {
+            self.haptics = try LofeltHaptics.init()
+        } catch let error{
+            print("Lofelt Haptics Engine Creation Error: \(error)")
+            return
+        }
+        let downloadTask = URLSession.shared.downloadTask(with: shortUrl) {
             urlOrNil, responseOrNil, errorOrNil in
             // check for and handle errors:
             // * errorOrNil should be nil
@@ -95,17 +116,27 @@ class GameViewModel: ObservableObject {
             
             guard let fileURL = urlOrNil else { return }
             do {
-                do {
-                    self.haptics = try LofeltHaptics.init()
-                } catch let error{
-                    print("Lofelt Haptics Engine Creation Error: \(error)")
-                }
-                try self.hapticData = NSString(contentsOf: fileURL, encoding: String.Encoding.utf8.rawValue)
+                try self.hapticDataShort = NSString(contentsOf: fileURL, encoding: String.Encoding.utf8.rawValue)
             } catch {
-                print ("Error Downloading Haptic from Aws: \(error)")
+                print ("Error Downloading Short Haptic from Aws: \(error)")
             }
         }
         downloadTask.resume()
+        
+        let downloadTaskLong = URLSession.shared.downloadTask(with: longUrl) {
+            urlOrNil, responseOrNil, errorOrNil in
+            // check for and handle errors:
+            // * errorOrNil should be nil
+            // * responseOrNil should be an HTTPURLResponse with statusCode in 200..<299
+            
+            guard let fileURL = urlOrNil else { return }
+            do {
+                try self.hapticDataLong = NSString(contentsOf: fileURL, encoding: String.Encoding.utf8.rawValue)
+            } catch {
+                print ("Error Downloading Short Haptic from Aws: \(error)")
+            }
+        }
+        downloadTaskLong.resume()
     }
     
     func addNumber() {
@@ -120,19 +151,19 @@ class GameViewModel: ObservableObject {
         state = stateTracker.next(with: (result.newBoard, state.score + result.scoredPoints))
         if boardHasChanged {
             addNumber()
-            playHaptic()
+            //playHaptic(hapticData: self.hapticDataShort)
         }
     }
     
-    func playHaptic() {
+    func playHaptic(hapticData: NSString?) {
         // Load it into the LofeltHaptics object as a String.
         guard let haptics = self.haptics else {
             print("unable to use haptics object")
             return
         }
-        
+        guard let hapticData = hapticData else { return }
         do {
-            try haptics.load(hapticData! as String)
+            try haptics.load(hapticData as String)
             // Play audio and haptics (audio must be played first).
             //audioPlayer?.play() //is audio needed for this project?
             try haptics.play()

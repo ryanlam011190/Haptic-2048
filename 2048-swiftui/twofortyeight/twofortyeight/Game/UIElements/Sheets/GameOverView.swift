@@ -3,6 +3,7 @@ import SwiftUI
 struct GameOverView: View {
     let score: Int
     let moves: Int
+    let surveyLink: String
     let action: () -> ()
     
     var body: some View {
@@ -20,7 +21,11 @@ struct GameOverView: View {
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .foregroundColor(.white50)
 			
-			Text("[Survey Link](https://www.surveymonkey.com/r/69HQVW9)")
+            if #available(iOS 14.0, *) {
+                Link("Survey Link", destination: URL(string: self.surveyLink) ?? URL(string: "https://www.surveymonkey.com/r/69HQVW9")! )
+            } else {
+                // Fallback on earlier versions
+            }
             
             Group {
                 ActionButton(title: "NEW GAME", action: action)
@@ -42,10 +47,10 @@ extension GameOverView {
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            GameOverView(score: 12312, moves: 999) { }
+            GameOverView(score: 12312, moves: 999, surveyLink: "https://www.surveymonkey.com/r/69HQVW9") { }
                 .environment(\.colorScheme, .light)
             
-            GameOverView(score: 12312, moves: 999) { }
+            GameOverView(score: 12312, moves: 999, surveyLink: "https://www.surveymonkey.com/r/69HQVW9") { }
                 .environment(\.colorScheme, .dark)
         }
     }
