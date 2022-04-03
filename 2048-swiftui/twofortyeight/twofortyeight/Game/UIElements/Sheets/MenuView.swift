@@ -7,7 +7,7 @@ struct MenuView: View {
     
     var body: some View {
         VStack {
-            HeaderBarTitle(title: "MENU")
+			HeaderBarTitle(title: "MENU", size: 60)
             Spacer()
             VStack(alignment: .center, spacing: 16) {
                 ActionButton(title: "NEW GAME", action: newGameAction)

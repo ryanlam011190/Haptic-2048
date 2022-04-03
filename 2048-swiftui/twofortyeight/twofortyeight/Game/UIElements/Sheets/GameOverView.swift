@@ -8,7 +8,7 @@ struct GameOverView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            HeaderBarTitle(title: "GAME ENDED")
+			HeaderBarTitle(title: "GAME ENDED", size: 60)
             Text("YOU SCORED:")
                 .font(.system(size: 20, weight: .black, design: .rounded))
                 .foregroundColor(.tileEight)
@@ -20,14 +20,15 @@ struct GameOverView: View {
             Text("Number of moves: \(moves)")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .foregroundColor(.white50)
-			
-            if #available(iOS 14.0, *) {
-                Link("Survey Link", destination: URL(string: self.surveyLink) ?? URL(string: "https://www.surveymonkey.com/r/69HQVW9")! )
-            } else {
-                // Fallback on earlier versions
-            }
             
             Group {
+				if #available(iOS 14.0, *) {
+					Link("Survey Link", destination: URL(string: self.surveyLink) ?? URL(string: "https://www.surveymonkey.com/r/69HQVW9")! )
+						.font(.system(size: 40, weight: .medium, design: .rounded))
+						.foregroundColor(.blue)
+				} else {
+					// Fallback on earlier versions
+				}
                 ActionButton(title: "NEW GAME", action: action)
             }.padding()
             Spacer()

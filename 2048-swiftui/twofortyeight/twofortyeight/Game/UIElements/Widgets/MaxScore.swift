@@ -18,9 +18,10 @@ struct MaxScore: View {
 
 struct MaxScore_Previews: PreviewProvider {
     static var previews: some View {
+		@State var startGame:Bool = false
 		let engine = GameEngine()
 		let storage = LocalStorage()
 		let stateTracker = GameStateTracker(initialState: (storage.board ?? engine.blankBoard, storage.score))
-		return GameView(viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
+		return GameView(startGame: $startGame, viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
     }
 }

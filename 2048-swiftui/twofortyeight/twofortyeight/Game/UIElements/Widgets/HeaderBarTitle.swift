@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderBarTitle: View {
     let title: String
-    let size: CGFloat = 60
+    let size: CGFloat
     
     var body: some View {
         Group {
@@ -22,6 +22,6 @@ struct HeaderBarTitle: View {
 
 struct HeaderBarTitle_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderBarTitle(title: "MENU")
+		HeaderBarTitle(title: "MENU", size: 60)
     }
 }

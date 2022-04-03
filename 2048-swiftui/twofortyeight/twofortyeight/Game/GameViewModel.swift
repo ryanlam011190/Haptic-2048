@@ -9,7 +9,7 @@ class GameViewModel: ObservableObject {
     private var haptics: LofeltHaptics?
     private var hapticDataShort: NSString?
     private var hapticDataLong: NSString?
-    public var surveyLink: String?
+    public var surveyLink: String = "https://www.surveymonkey.com/r/69HQVW9"
 	
 	public var MAX_SCORE = 10
   

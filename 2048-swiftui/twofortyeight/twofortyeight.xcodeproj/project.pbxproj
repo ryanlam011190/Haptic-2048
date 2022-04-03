@@ -51,6 +51,7 @@
 		EBE769332329A2F100BEED35 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE769322329A2F100BEED35 /* ArrayExtensions.swift */; };
 		EBFADE512328587F00E53800 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFADE502328587F00E53800 /* GameView.swift */; };
 		FD4754E127B4F2E100A4605E /* MaxScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4754E027B4F2E100A4605E /* MaxScore.swift */; };
+		FD5F5BAE27F94F560097C5E9 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F5BAD27F94F560097C5E9 /* LogInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		EBE769322329A2F100BEED35 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		EBFADE502328587F00E53800 /* GameView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		FD4754E027B4F2E100A4605E /* MaxScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxScore.swift; sourceTree = "<group>"; };
+		FD5F5BAD27F94F560097C5E9 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				EBFADE502328587F00E53800 /* GameView.swift */,
+				FD5F5BAD27F94F560097C5E9 /* LogInView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				EBC999CE2325932E006BA2E7 /* SceneDelegate.swift in Sources */,
 				EB7488A5232885960043DF64 /* SmallActionButton.swift in Sources */,
 				EBFADE512328587F00E53800 /* GameView.swift in Sources */,
+				FD5F5BAE27F94F560097C5E9 /* LogInView.swift in Sources */,
 				EB66032F232C4D3600AD5455 /* Storage.swift in Sources */,
 				EBE769332329A2F100BEED35 /* ArrayExtensions.swift in Sources */,
 				EB33775A23330C7A000D8850 /* HeaderBarTitle.swift in Sources */,
