@@ -2,8 +2,8 @@ import SwiftUI
 
 struct GameEntry: View {
 	@ObservedObject var viewModel: GameViewModel
-	@State var startGame:Bool = false
-	@State var stopGame:Bool = false
+	@State var startGame: Bool = false
+	@State var stopGame: Bool = false
 	
 	var body: some View {
 		return VStack {
@@ -11,7 +11,7 @@ struct GameEntry: View {
 				LogInView(viewModel: viewModel, startGame: $startGame)
 			}
 			else if viewModel.isGameOver {
-				GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.surveyLink) {
+                GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://surveymonkey.com") {
 					self.viewModel.reset()
 				}
 			}
@@ -66,7 +66,7 @@ extension GameView {
 	
 	private func GameOver() -> some View {
 		EmptyView().sheet(isPresented: $viewModel.isGameOver) {
-			GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.surveyLink) {
+            GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.configuration!.JSONconfig!.survey_link) {
 				self.viewModel.reset()
 			}
 		}

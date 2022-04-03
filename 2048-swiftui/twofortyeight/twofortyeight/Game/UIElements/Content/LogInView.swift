@@ -33,6 +33,7 @@ struct LogInView: View {
 			Button(action: {
 				// Your auth logic
 				self.viewModel.reset()
+                self.viewModel.config_id = experimentId
 				self.startGame = true
 			}) {
 				Text("Sign in")
