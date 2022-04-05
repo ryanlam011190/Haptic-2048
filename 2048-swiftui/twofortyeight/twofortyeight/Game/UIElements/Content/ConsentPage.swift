@@ -11,8 +11,7 @@ import URLImage
 
 struct ConsentPage: View {
 	@Binding var showConsent:Bool
-	@State private var agreed = false
-	@State private var holdPhone = false
+	
 	let url = URL(string: "https://www.logolynx.com/images/logolynx/7d/7d09a7f18456e08cbf106b89e750bd2d.jpeg")
 	
 	var body: some View {
@@ -25,6 +24,18 @@ struct ConsentPage: View {
 					.aspectRatio(contentMode: .fit)
 			}
 			
+			ConsentAgreement(showConsent: $showConsent)
+		}
+	}
+}
+
+struct ConsentAgreement: View {
+	@Binding var showConsent:Bool
+	@State private var agreed = false
+	@State private var holdPhone = false
+	
+	var body: some View {
+		VStack() {
 			CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes, full details at link", isMarked: $agreed)
 			CheckboxField(id: "holdPhone", label: "I agree to hold the phone as described in the image above for the duratin of the experiment with my dominant / non dominant hand", isMarked: $holdPhone)
 			
@@ -37,7 +48,6 @@ struct ConsentPage: View {
 			.font(.system(size: 35, weight: .medium, design: .rounded))
 			.disabled(!agreed || !holdPhone)
 		}
- 		
 	}
 }
 
@@ -48,7 +58,7 @@ struct CheckboxField: View {
 	let color: Color
 	let textSize: Int
 
-	@Binding var isMarked: Bool /// Binding here!
+	@Binding var isMarked: Bool
 	
 	init(
 	id: String,
