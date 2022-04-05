@@ -13,20 +13,23 @@ struct ConsentPage: View {
 	@Binding var showConsent:Bool
 	@State private var agreed = false
 	@State private var holdPhone = false
-	let url = URL(string: "https://www.logolynx.com/images/logolynx/7d/7d09a7f18456e08cbf106b89e750bd2d.jpeg")
+    
+    let instructions: String
+    let url: URL
+	// let url = URL(string: "https://www.logolynx.com/images/logolynx/7d/7d09a7f18456e08cbf106b89e750bd2d.jpeg")
 	
 	var body: some View {
 		VStack() {
 			HeaderBarTitle(title: "GAME AGREEMENT", size: 20)
 			
-			URLImage(url!) { image in
+			URLImage(url) { image in
 				image
 					.resizable()
 					.aspectRatio(contentMode: .fit)
 			}
 			
-			CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes, full details at link", isMarked: $agreed)
-			CheckboxField(id: "holdPhone", label: "I agree to hold the phone as described in the image above for the duratin of the experiment with my dominant / non dominant hand", isMarked: $holdPhone)
+            CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed).colorInvert()
+            CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone).colorInvert()
 			
 			Button(action: {
 				self.showConsent = false

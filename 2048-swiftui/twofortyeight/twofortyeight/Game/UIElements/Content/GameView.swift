@@ -2,17 +2,19 @@ import SwiftUI
 
 struct GameEntry: View {
 	@ObservedObject var viewModel: GameViewModel
-	@State var showLogin:Bool = true
-	@State var showConsent:Bool = false
-	@State var stopGame:Bool = false
+	@State var showLogin: Bool = true
+	@State var showConsent: Bool = false
+	@State var stopGame: Bool = false
 	
 	var body: some View {
 		return VStack {
 			if showLogin {
 				LogInView(viewModel: viewModel, showLogin: $showLogin, showConsent: $showConsent, stopGame: $stopGame)
 			}
-			else if showConsent {
-				ConsentPage(showConsent: $showConsent)
+            else if showConsent {
+                let instructions = viewModel.configuration?.JSONconfig?.instructions ?? "No custom instructions :)"
+                let url = viewModel.configuration?.JSONconfig?.user_instructions_image ?? URL(string: "https://www.logolynx.com/images/logolynx/7d/7d09a7f18456e08cbf106b89e750bd2d.jpeg")!
+                ConsentPage(showConsent: $showConsent, instructions: instructions, url: url)
 			}
 			else if viewModel.isGameOver {
 				GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://surveymonkey.com") {

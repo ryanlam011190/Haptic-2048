@@ -127,11 +127,6 @@ class GameViewModel: ObservableObject {
     
 }
 
-struct JSONConfiguration: Codable {
-    let config_body: ConfigBody
-    let max_score: Int
-}
-
 struct ConfigBody: Codable {
     let user_instructions_image: URL
     let gesture: String
@@ -144,14 +139,15 @@ struct ConfigBody: Codable {
 class Configuration {
     var JSONconfig: ConfigBody?
     let config_id: String
+    let downloadCondition: NSCondition
     var downloaded = false {
         didSet {
-            if self.downloaded {
-                print("Downloaded!")
+            if self.downloaded && oldValue == false {
+                self.downloadCondition.signal()
             }
         }
     }
-    
+        
     var hapticDataShort: NSString? {
         didSet {
             if let _ = self.hapticDataShort, let _ = self.hapticDataLong {
@@ -174,7 +170,12 @@ class Configuration {
     
     init(config_id: String) {
         self.config_id = config_id
+        self.downloadCondition = NSCondition()
         getConfig()
+        self.downloadCondition.lock()
+        if (self.hapticDataShort == nil || self.hapticDataLong == nil) {
+            self.downloadCondition.wait(until: Date(timeIntervalSinceNow: 5))
+        }
     }
     
     func getConfig() {

@@ -43,7 +43,7 @@ struct LogInView: View {
 			}) {
 				Text("Start game")
 			}
-			.disabled(userId.isEmpty || experimentId.isEmpty)
+            .disabled(userId.isEmpty || experimentId.isEmpty)
 			
 			Button(action: {
 				self.viewModel.reset()
