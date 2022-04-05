@@ -50,6 +50,9 @@
 		EBE7692D23288B5A00BEED35 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7692C23288B5A00BEED35 /* LocalStorage.swift */; };
 		EBE769332329A2F100BEED35 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE769322329A2F100BEED35 /* ArrayExtensions.swift */; };
 		EBFADE512328587F00E53800 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFADE502328587F00E53800 /* GameView.swift */; };
+		FD09356C27FBBBA600A78B0A /* ConsentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09356B27FBBBA600A78B0A /* ConsentPage.swift */; };
+		FD09356F27FBCA1200A78B0A /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = FD09356E27FBCA1200A78B0A /* URLImage */; };
+		FD09357127FBCA1200A78B0A /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = FD09357027FBCA1200A78B0A /* URLImageStore */; };
 		FD4754E127B4F2E100A4605E /* MaxScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4754E027B4F2E100A4605E /* MaxScore.swift */; };
 		FD5F5BAE27F94F560097C5E9 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5F5BAD27F94F560097C5E9 /* LogInView.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +139,7 @@
 		EBE7692C23288B5A00BEED35 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		EBE769322329A2F100BEED35 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		EBFADE502328587F00E53800 /* GameView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		FD09356B27FBBBA600A78B0A /* ConsentPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPage.swift; sourceTree = "<group>"; };
 		FD4754E027B4F2E100A4605E /* MaxScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxScore.swift; sourceTree = "<group>"; };
 		FD5F5BAD27F94F560097C5E9 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +149,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD09356F27FBCA1200A78B0A /* URLImage in Frameworks */,
+				FD09357127FBCA1200A78B0A /* URLImageStore in Frameworks */,
 				1E5FD51227AC75C900E9CAF8 /* LofeltHaptics.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +368,7 @@
 			children = (
 				EBFADE502328587F00E53800 /* GameView.swift */,
 				FD5F5BAD27F94F560097C5E9 /* LogInView.swift */,
+				FD09356B27FBBBA600A78B0A /* ConsentPage.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -393,6 +400,10 @@
 			dependencies = (
 			);
 			name = twofortyeight;
+			packageProductDependencies = (
+				FD09356E27FBCA1200A78B0A /* URLImage */,
+				FD09357027FBCA1200A78B0A /* URLImageStore */,
+			);
 			productName = twofortyeight;
 			productReference = EBC999C82325932E006BA2E7 /* twofortyeight.app */;
 			productType = "com.apple.product-type.application";
@@ -466,6 +477,9 @@
 				Base,
 			);
 			mainGroup = EBC999BF2325932E006BA2E7;
+			packageReferences = (
+				FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = EBC999C92325932E006BA2E7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -514,6 +528,7 @@
 				EBC999CC2325932E006BA2E7 /* AppDelegate.swift in Sources */,
 				EB2AE08F232826AE00A0D911 /* Swipe.swift in Sources */,
 				EBC99A0723271AB4006BA2E7 /* GameEngine.swift in Sources */,
+				FD09356C27FBBBA600A78B0A /* ConsentPage.swift in Sources */,
 				FD4754E127B4F2E100A4605E /* MaxScore.swift in Sources */,
 				EB660323232A735C00AD5455 /* IntExtensions.swift in Sources */,
 				EB74889823286BF80043DF64 /* GameViewModel.swift in Sources */,
@@ -876,6 +891,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FD09356E27FBCA1200A78B0A /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+		FD09357027FBCA1200A78B0A /* URLImageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImageStore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EBC999C02325932E006BA2E7 /* Project object */;
 }

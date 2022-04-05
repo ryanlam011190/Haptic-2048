@@ -2,42 +2,53 @@ import SwiftUI
 
 struct GameEntry: View {
 	@ObservedObject var viewModel: GameViewModel
-	@State var startGame: Bool = false
-	@State var stopGame: Bool = false
+	@State var showLogin:Bool = true
+	@State var showConsent:Bool = false
+	@State var stopGame:Bool = false
 	
 	var body: some View {
 		return VStack {
-			if !startGame {
-				LogInView(viewModel: viewModel, startGame: $startGame)
+			if showLogin {
+				LogInView(viewModel: viewModel, showLogin: $showLogin, showConsent: $showConsent, stopGame: $stopGame)
+			}
+			else if showConsent {
+				ConsentPage(showConsent: $showConsent)
 			}
 			else if viewModel.isGameOver {
-                GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://surveymonkey.com") {
+				GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://surveymonkey.com") {
 					self.viewModel.reset()
 				}
 			}
 			else {
-				GameView(startGame: $startGame, viewModel: viewModel)
+				GameView(viewModel: viewModel)
 			}
 		}
 	}
 }
 
 struct GameView: View {
-	@Binding var startGame: Bool
 	@ObservedObject var viewModel: GameViewModel
 	@State var showMenu = false
 	
 	var body: some View {
-		VStack(alignment: .center, spacing: 16) {
-			Header(score: viewModel.state.score, bestScore: viewModel.MAX_SCORE, menuAction: {
-				self.showMenu.toggle()
-			}, undoAction: {
-				self.viewModel.undo()
-			}, undoEnabled: self.viewModel.isUndoable)
-			GoalText()
-			MaxScore(viewModel: viewModel)
-			Board(board: viewModel.state.board, addedTile: viewModel.addedTile)
-			Moves(viewModel.numberOfMoves)
+		VStack() {
+			VStack(alignment: .center, spacing: 16) {
+				Header(score: viewModel.state.score, bestScore: viewModel.MAX_SCORE, menuAction: {
+					self.showMenu.toggle()
+				}, undoAction: {
+					self.viewModel.undo()
+				}, undoEnabled: self.viewModel.isUndoable)
+				GoalText()
+				Board(board: viewModel.state.board, addedTile: viewModel.addedTile)
+				Moves(viewModel.numberOfMoves)
+			}
+			
+			VStack() {
+				Text("User id: " + self.viewModel.userId).bold()
+				Text("Experiment id: " + self.viewModel.experimentId).bold()
+			}
+			.font(.system(size: 16, weight: .regular, design: .rounded))
+			.foregroundColor(.white50)
 		}
 		.frame(minWidth: .zero,
 			   maxWidth: .infinity,
@@ -79,6 +90,6 @@ struct GameView_Previews: PreviewProvider {
 		let engine = GameEngine()
 		let storage = LocalStorage()
 		let stateTracker = GameStateTracker(initialState: (storage.board ?? engine.blankBoard, storage.score))
-		return GameView(startGame: $startGame, viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
+		return GameView(viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
 	}
 }

@@ -2,7 +2,9 @@ import SwiftUI
 
 struct LogInView: View {
 	@ObservedObject var viewModel: GameViewModel
-	@Binding var startGame: Bool
+	@Binding var showLogin: Bool
+	@Binding var showConsent:Bool
+	@Binding var stopGame:Bool
 	@State private var userId: String = ""
 	@State private var experimentId: String = ""
 	
@@ -31,12 +33,24 @@ struct LogInView: View {
 			.textFieldStyle(.roundedBorder)
 			
 			Button(action: {
-				// Your auth logic
+				self.viewModel.experimentId = self.experimentId
+				self.viewModel.userId = self.userId
+				self.viewModel.config_id = self.experimentId
+				self.viewModel.configuration?.getConfig()
 				self.viewModel.reset()
-                self.viewModel.config_id = experimentId
-				self.startGame = true
+				self.showConsent = true
+				self.showLogin = false
 			}) {
-				Text("Sign in")
+				Text("Start game")
+			}
+			.disabled(userId.isEmpty || experimentId.isEmpty)
+			
+			Button(action: {
+				self.viewModel.reset()
+				self.viewModel.skipGame = true
+				self.showLogin = false
+			}) {
+				Text("Skip >>")
 			}
 		}
 	}

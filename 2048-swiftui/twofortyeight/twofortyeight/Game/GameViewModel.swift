@@ -8,8 +8,11 @@ class GameViewModel: ObservableObject {
     private(set) var stateTracker: StateTracker
     private var haptics: LofeltHaptics?
     var configuration: Configuration?
+	public var userId: String = ""
+	public var experimentId: String = ""
+	public var skipGame: Bool = false
     
-	public var MAX_SCORE = 10
+	public var MAX_SCORE = 40
   
     @Published var isGameOver = false {
         didSet {

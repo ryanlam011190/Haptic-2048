@@ -7,34 +7,23 @@ struct MenuView: View {
     
     var body: some View {
         VStack {
-			HeaderBarTitle(title: "MENU", size: 60)
             Spacer()
             VStack(alignment: .center, spacing: 16) {
-                ActionButton(title: "NEW GAME", action: newGameAction)
-                    .accessibility(identifier: "newGameButton")
-                ActionButton(title: "RESET BEST SCORE") { self.showConfirmation.toggle() }
-                    .accessibility(identifier: "resetBestScoreButton")
+				HeaderBarTitle(title: "2048 HAPTICS GAME", size: 20)
+				
+                Text("Contributions:")
+				Text("Zoe Fisher")
+				Text("Harshitha Padiyar")
+				Text("Ryan Lam")
+				Text("Guangji Liu")
+				Text("Sarah Etter")
+				Text("LongHuy Nguyen")
+				
+				Text("Open source project: [Link](https://github.com/caiobzen/2048-swiftui)")
             }
             Spacer()
         }
         .background(Color.white)
-        .alert(isPresented: $showConfirmation) { confirmationAlert }
-    }
-}
-
-extension MenuView {
-    private var confirmationAlert: Alert {
-        Alert(title: confirmationMessage,
-              primaryButton: resetScoreAlertButton,
-              secondaryButton: .cancel())
-    }
-    
-    private var confirmationMessage: Text {
-        Text("Are you sure you want to erase your best score?")
-    }
-    
-    private var resetScoreAlertButton: Alert.Button {
-        .default(Text("Yeah, whatever"), action: self.resetScoreAction)
     }
 }
 

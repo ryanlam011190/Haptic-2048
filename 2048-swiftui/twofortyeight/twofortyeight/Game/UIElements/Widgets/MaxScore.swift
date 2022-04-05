@@ -22,6 +22,6 @@ struct MaxScore_Previews: PreviewProvider {
 		let engine = GameEngine()
 		let storage = LocalStorage()
 		let stateTracker = GameStateTracker(initialState: (storage.board ?? engine.blankBoard, storage.score))
-		return GameView(startGame: $startGame, viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
+		return GameView(viewModel: GameViewModel(engine, storage: storage, stateTracker: stateTracker))
     }
 }

@@ -4,7 +4,7 @@ struct Header: View {
     let score: Int
     let bestScore: Int
     let scoreLabel = "SCORE"
-    let bestScoreLabel = "BEST"
+    let bestScoreLabel = "TARGET"
     let menuAction: () -> Void
     let undoAction: () -> Void
     var undoEnabled: Bool
