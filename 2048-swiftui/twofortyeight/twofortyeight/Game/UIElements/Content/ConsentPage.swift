@@ -16,7 +16,6 @@ struct ConsentPage: View {
     
     let instructions: String
     let url: URL
-	// let url = URL(string: "https://www.logolynx.com/images/logolynx/7d/7d09a7f18456e08cbf106b89e750bd2d.jpeg")
 	
 	var body: some View {
 		VStack() {
@@ -27,10 +26,21 @@ struct ConsentPage: View {
 					.resizable()
 					.aspectRatio(contentMode: .fit)
 			}
-			
+			ConsentAgreement(showConsent: $showConsent, instructions: instructions)
+		}
+	}
+}
+
+struct ConsentAgreement: View {
+	@Binding var showConsent:Bool
+	@State private var agreed = false
+	@State private var holdPhone = false
+    let instructions: String
+	
+	var body: some View {
+		VStack() {
             CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed).colorInvert()
             CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone).colorInvert()
-			
 			Button(action: {
 				self.showConsent = false
 			}) {
@@ -40,7 +50,6 @@ struct ConsentPage: View {
 			.font(.system(size: 35, weight: .medium, design: .rounded))
 			.disabled(!agreed || !holdPhone)
 		}
- 		
 	}
 }
 
@@ -51,7 +60,7 @@ struct CheckboxField: View {
 	let color: Color
 	let textSize: Int
 
-	@Binding var isMarked: Bool /// Binding here!
+	@Binding var isMarked: Bool
 	
 	init(
 	id: String,
