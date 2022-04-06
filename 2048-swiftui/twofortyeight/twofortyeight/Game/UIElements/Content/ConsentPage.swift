@@ -32,6 +32,7 @@ struct ConsentPage: View {
 }
 
 struct ConsentAgreement: View {
+	@Environment(\.colorScheme) var colorScheme
 	@Binding var showConsent:Bool
 	@State private var agreed = false
 	@State private var holdPhone = false
@@ -39,8 +40,14 @@ struct ConsentAgreement: View {
 	
 	var body: some View {
 		VStack() {
-            CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed)
-            CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone)
+			if colorScheme == .dark {
+				CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed).colorInvert()
+				CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone).colorInvert()
+			} else {
+				CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed)
+				CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone)
+			}
+            
 			Button(action: {
 				self.showConsent = false
 			}) {
