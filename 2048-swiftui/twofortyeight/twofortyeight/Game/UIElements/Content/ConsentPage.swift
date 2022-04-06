@@ -39,8 +39,8 @@ struct ConsentAgreement: View {
 	
 	var body: some View {
 		VStack() {
-            CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed).colorInvert()
-            CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone).colorInvert()
+            CheckboxField(id: "agreed", label: "I agree that the survey data is being collected for research purposes and that I will hold the phone as described in the image above for the duration of the experiment.", isMarked: $agreed)
+            CheckboxField(id: "holdPhone", label: instructions, isMarked: $holdPhone)
 			Button(action: {
 				self.showConsent = false
 			}) {

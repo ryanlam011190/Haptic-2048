@@ -3,7 +3,7 @@ import SwiftUI
 struct GameOverView: View {
     let score: Int
     let moves: Int
-    let surveyLink: String
+    var surveyLink: String
     let action: () -> ()
     
     var body: some View {
@@ -23,7 +23,7 @@ struct GameOverView: View {
             
             Group {
 				if #available(iOS 14.0, *) {
-					Link("Survey Link", destination: URL(string: self.surveyLink) ?? URL(string: "https://www.surveymonkey.com/r/69HQVW9")! )
+                    Link("Survey Link", destination: URL(string: self.surveyLink) ?? URL(string: "https://surveymonkey.com")!)
 						.font(.system(size: 40, weight: .medium, design: .rounded))
 						.foregroundColor(.blue)
 				} else {

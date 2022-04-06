@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import LofeltHaptics
+import DeviceKit
 
 class GameViewModel: ObservableObject {
     private(set) var engine: Engine
@@ -11,6 +12,7 @@ class GameViewModel: ObservableObject {
 	public var userId: String = ""
 	public var experimentId: String = ""
 	public var skipGame: Bool = false
+    public var hiddenVariables: String
     
 	public var MAX_SCORE = 40
   
@@ -59,6 +61,11 @@ class GameViewModel: ObservableObject {
         self.stateTracker = stateTracker
         self.state = stateTracker.last
         self.bestScore = max(storage.bestScore, storage.score)
+        self.hiddenVariables = "?os=" + UIDevice.current.systemName + " " + UIDevice.current.systemVersion
+        self.hiddenVariables += "&model=" + Device.current.description
+        self.hiddenVariables += "&user_id=" + (UIDevice.current.identifierForVendor?.uuidString ?? "")
+        self.hiddenVariables = self.hiddenVariables.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        print(self.hiddenVariables)
         self.setupHaptics()
     }
     
@@ -132,7 +139,7 @@ struct ConfigBody: Codable {
     let gesture: String
     let long_haptics_file: URL
     let short_haptics_file: URL
-    let survey_link: String
+    var survey_link: String
     let instructions: String
 }
 
