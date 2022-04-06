@@ -14,6 +14,7 @@
 		1E5FD51327AC75C900E9CAF8 /* LofeltHaptics.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5FD51027AC757300E9CAF8 /* LofeltHaptics.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1E5FD51827AC7C1C00E9CAF8 /* Achievement_1.haptic in Resources */ = {isa = PBXBuildFile; fileRef = 1E5FD51627AC7C1C00E9CAF8 /* Achievement_1.haptic */; };
 		1E5FD51927AC7C1C00E9CAF8 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E5FD51727AC7C1C00E9CAF8 /* Contents.json */; };
+		1E68CF3C27FD22800068FEBA /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1E68CF3B27FD22800068FEBA /* DeviceKit */; };
 		EB2AE08D2328153200A0D911 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2AE08C2328153200A0D911 /* GameViewController.swift */; };
 		EB2AE08F232826AE00A0D911 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2AE08E232826AE00A0D911 /* Swipe.swift */; };
 		EB33775A23330C7A000D8850 /* HeaderBarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB33775923330C7A000D8850 /* HeaderBarTitle.swift */; };
@@ -150,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD09356F27FBCA1200A78B0A /* URLImage in Frameworks */,
+				1E68CF3C27FD22800068FEBA /* DeviceKit in Frameworks */,
 				FD09357127FBCA1200A78B0A /* URLImageStore in Frameworks */,
 				1E5FD51227AC75C900E9CAF8 /* LofeltHaptics.xcframework in Frameworks */,
 			);
@@ -403,6 +405,7 @@
 			packageProductDependencies = (
 				FD09356E27FBCA1200A78B0A /* URLImage */,
 				FD09357027FBCA1200A78B0A /* URLImageStore */,
+				1E68CF3B27FD22800068FEBA /* DeviceKit */,
 			);
 			productName = twofortyeight;
 			productReference = EBC999C82325932E006BA2E7 /* twofortyeight.app */;
@@ -479,6 +482,7 @@
 			mainGroup = EBC999BF2325932E006BA2E7;
 			packageReferences = (
 				FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */,
+				1E68CF3A27FD22800068FEBA /* XCRemoteSwiftPackageReference "DeviceKit" */,
 			);
 			productRefGroup = EBC999C92325932E006BA2E7 /* Products */;
 			projectDirPath = "";
@@ -893,6 +897,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1E68CF3A27FD22800068FEBA /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -904,6 +916,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1E68CF3B27FD22800068FEBA /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E68CF3A27FD22800068FEBA /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
+		};
 		FD09356E27FBCA1200A78B0A /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD09356D27FBCA1200A78B0A /* XCRemoteSwiftPackageReference "url-image" */;
