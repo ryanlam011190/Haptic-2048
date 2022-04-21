@@ -17,8 +17,8 @@ AWS_SECRET_KEY = "4LTQMJSBt4dVrrpcZzHp/BzbpNX3gSuzlFJ/WwJR";
 
 
 const s3 = new AWS.S3({
-    accessKeyId: AWS_ACCESS_KEY,
-    secretAccessKey: AWS_SECRET_KEY
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 const uploadS3 = multer({
