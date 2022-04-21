@@ -9,10 +9,23 @@ class GameViewModel: ObservableObject {
     private(set) var stateTracker: StateTracker
     private var haptics: LofeltHaptics?
     var configuration: Configuration?
-	public var userId: String = ""
+    public var userId: String = "" {
+        didSet {
+            if !userHiddenVariablesDone {
+                self.hiddenVariables += "&user_id=" + userId
+                self.userHiddenVariablesDone = true
+                if configHiddenVariablesDone {
+                    self.hiddenVariables = self.hiddenVariables.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                }
+            }
+        }
+    }
+    
 	public var experimentId: String = ""
 	public var skipGame: Bool = false
     public var hiddenVariables: String
+    var configHiddenVariablesDone = false
+    var userHiddenVariablesDone = false
     
 	public var MAX_SCORE = 40
   
@@ -30,6 +43,16 @@ class GameViewModel: ObservableObject {
         didSet {
             print("set config_id: \(config_id)")
             self.configuration = Configuration(config_id: self.config_id!)
+            if let max_score = self.configuration?.JSONconfig?.max_score {
+                self.MAX_SCORE = max_score
+            }
+            if !configHiddenVariablesDone {
+                self.hiddenVariables += "&config_id=" + (config_id ?? "")
+                self.configHiddenVariablesDone = true
+                if userHiddenVariablesDone {
+                    self.hiddenVariables = self.hiddenVariables.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                }
+            }
         }
     }
     
@@ -63,9 +86,7 @@ class GameViewModel: ObservableObject {
         self.bestScore = max(storage.bestScore, storage.score)
         self.hiddenVariables = "?os=" + UIDevice.current.systemName + " " + UIDevice.current.systemVersion
         self.hiddenVariables += "&model=" + Device.current.description
-        self.hiddenVariables += "&user_id=" + (UIDevice.current.identifierForVendor?.uuidString ?? "")
-        self.hiddenVariables = self.hiddenVariables.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        print(self.hiddenVariables)
+        self.hiddenVariables += "&vendor_id=" + (UIDevice.current.identifierForVendor?.uuidString ?? "")
         self.setupHaptics()
     }
     
@@ -141,6 +162,7 @@ struct ConfigBody: Codable {
     let short_haptics_file: URL
     var survey_link: String
     let instructions: String
+    let max_score: Int?
 }
 
 class Configuration {
@@ -154,6 +176,7 @@ class Configuration {
             }
         }
     }
+    var errorMsg: String?
         
     var hapticDataShort: NSString? {
         didSet {
@@ -199,16 +222,25 @@ class Configuration {
         request.httpBody = bodyData
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
+                print("DATAAAA")
+                print(data)
                 let jsonDecoder = JSONDecoder()
-                print("fetched data")
                 do {
                     self.JSONconfig = try jsonDecoder.decode(ConfigBody.self, from: data)
-                    print("decoded data")
                     self.downloadContent()
                 }
-                catch { print(error) }
+                catch {
+                    if(error.localizedDescription == "The data couldn’t be read because it is missing.") {
+                        self.errorMsg = "invalid experiment id"
+                    } else {
+                        self.errorMsg = "please restart the server"
+                    }
+                    self.downloadCondition.signal()
+                }
             } else {
                 print("no data returned, server is down")
+                self.errorMsg = "please restart the server"
+                self.downloadCondition.signal()
             }
         }
         task.resume()

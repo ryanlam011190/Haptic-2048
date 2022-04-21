@@ -17,7 +17,7 @@ struct GameEntry: View {
                 ConsentPage(showConsent: $showConsent, instructions: instructions, url: url)
 			}
 			else if viewModel.isGameOver {
-                let surveyLink = (self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://usc.qualtrics.com/jfe/form/SV_dbfaGzKfZzEWETA") + (self.viewModel.hiddenVariables ?? "")
+                let surveyLink = (self.viewModel.configuration?.JSONconfig?.survey_link ?? "https://usc.qualtrics.com/jfe/form/SV_dbfaGzKfZzEWETA") + (self.viewModel.hiddenVariables)
                 GameOverView(score: self.viewModel.state.score, moves: self.viewModel.numberOfMoves, surveyLink: surveyLink) {
 					self.viewModel.reset()
 				}
