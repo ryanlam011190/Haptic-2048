@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://combinatronics.com/Sha256/Pristine/master/dist/pristine.js"></script>
+</head>
+
+<body>
+    <div class="form-container">
+        <form method="post" action="/haptics_configuration" enctype="multipart/form-data" novalidate id="form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <h1>Haptics Configuration</h1>
+            <div class="form-field">
+                <label for="email">Email</label>
+                <input class="input" id="email" name="email" type="email" value="<%= data.email %>" required data-pristine-required-message="Email address is required" data-pristine-email-message="Please enter a valid email address"/>
+            </div>
+
+            <div class="form-field">
+                <label for="max_score">Max Score</label>
+                <input class="input" id="max_score" name="max_score" required data-pristine-required-message="Please enter a max score" data-pristine-type="integer" data-pristine-integer-message="Please enter an integer for the max score"/>
+            </div>
+
+            <div class="form-field">
+                <label for="survey_link">Survey Link</label>
+                <input class="input" id="survey_link" name="survey_link" type="url" required data-pristine-required-message="Please enter a survey url"/>
+            </div>
+
+            <div class="form-field>
+                <label for="gesture">Gesture</label>
+                <select class="input" name = "gesture" id="gesture" type="gesture" required>
+                    <option value="tap" >Tap</option>
+                    <option value="slide" >Slide</option>
+                    <option value="swipe" selected>Swipe</option>
+                    <option value="double_tap" >Double Tap</option>
+                    <option value="tap_hold" >Tap and Hold</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="long_haptics_file">Long Haptics File</label>
+                <input class="input" id="long_haptics_file" name="file" type="file" required data-pristine-required-message="Please attach your long haptics file"/>
+            </div>
+
+            <div class="form-field">
+                <label for="short_haptics_file">Short Haptics File</label>
+                <input class="input" id="short_haptics_file" name="file" type="file" required data-pristine-required-message="Please attach your short haptics file"/>
+            </div>
+
+            <div class="form-field">
+                <label for="short_haptics_file">User Instructions Image</label>
+                <input class="input" id="user_instructions_image" name="file" type="file" required data-pristine-required-message="Please attach your user instructions image"/>
+            </div>
+
+            <div class="form-field">
+                <label for="instructions">Instructions</label>
+                <textarea class="input" id="instructions" name="instructions" rows="4" autofocus minlength="1" required data-pristine-required-message="Please enter instructions"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn" type="submit">Submit</button>
+            </div>
+        </form>
+</div>
+
+<script>
+    window.onload = function () {
+        var form = document.getElementById("form");
+
+        // create the pristine instance
+        let config = {
+            // class of the parent element where the error/success class is added
+            classTo: 'form-field',
+            errorClass: 'has-danger',
+            successClass: 'has-success',
+            // class of the parent element where error text element is appended
+            errorTextParent: 'form-field',
+            // type of element to create for the error text
+            errorTextTag: 'div',
+            // class of the error text element
+            errorTextClass: 'text-help' 
+        };
+        var live = true;
+        var pristine = new Pristine(form, config, live);
+
+        var survey_link = document.getElementById("survey_link");
+        pristine.addValidator(survey_link, function(value) {
+            var is_valid_url = value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+            if (is_valid_url !== null) {
+                return true;
+            }
+            return false;
+        }, "Please enter a valid url", 2, false);
+
+        form.addEventListener('submit', function (e) {
+            // check if the form is valid
+            var valid = pristine.validate(); // returns true or false
+            // console.log("validity of submission: " + valid);
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
+    };
+</script>
+</body>
+</html>
