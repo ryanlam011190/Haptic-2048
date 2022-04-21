@@ -31,6 +31,7 @@ struct LogInView: View {
 			.background(RoundedRectangle(cornerRadius: 10).fill(Color.clear))
 			.padding()
 			.textFieldStyle(.roundedBorder)
+            .keyboardType(.decimalPad)
 			
 			Button(action: {
 				self.viewModel.experimentId = self.experimentId
@@ -38,8 +39,12 @@ struct LogInView: View {
 				self.viewModel.config_id = self.experimentId
 				self.viewModel.configuration?.getConfig()
 				self.viewModel.reset()
-				self.showConsent = true
-				self.showLogin = false
+                if let _ = self.viewModel.configuration?.errorMsg {
+                    self.showLogin = true
+                } else {
+                    self.showConsent = true
+                    self.showLogin = false
+                }
 			}) {
 				Text("Start game")
 			}
@@ -52,6 +57,8 @@ struct LogInView: View {
 			}) {
 				Text("Skip >>")
 			}
+            
+            Text(self.viewModel.configuration?.errorMsg ?? "").foregroundColor(Color.red)
 		}
 	}
 }
