@@ -162,7 +162,7 @@ struct ConfigBody: Codable {
     let short_haptics_file: URL
     var survey_link: String
     let instructions: String
-    let max_score: Int
+    let max_score: Int?
 }
 
 class Configuration {
