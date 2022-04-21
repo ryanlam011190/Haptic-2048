@@ -27,6 +27,7 @@ struct ConsentPage: View {
 					.aspectRatio(contentMode: .fit)
 			}
 			ConsentAgreement(showConsent: $showConsent, instructions: instructions)
+				.padding([.leading], 4)
 		}
 	}
 }

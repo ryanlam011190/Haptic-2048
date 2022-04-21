@@ -12,26 +12,27 @@ struct LogInView: View {
 		VStack(alignment: .center, spacing: 20) {
 			HeaderBarTitle(title: "2048 HAPTICS GAME", size: 20)
 			
-			Text("User id")
 			TextField(
 				"User id",
 				text: $userId
 			)
-			.font(Font.system(size: 12))
-			.background(RoundedRectangle(cornerRadius: 10).fill(Color.clear))
-			.padding()
-			.textFieldStyle(.roundedBorder)
+			.frame(height: 55)
+			.textFieldStyle(PlainTextFieldStyle())
+			.padding([.horizontal], 4)
+			.cornerRadius(10)
+			.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray))
+			.padding([.horizontal], 24)
 			
-			Text("Experiment id")
 			TextField(
 				"Experiment id",
 				text: $experimentId
 			)
-			.font(Font.system(size: 12))
-			.background(RoundedRectangle(cornerRadius: 10).fill(Color.clear))
-			.padding()
-			.textFieldStyle(.roundedBorder)
-            .keyboardType(.decimalPad)
+			.frame(height: 55)
+			.textFieldStyle(PlainTextFieldStyle())
+			.padding([.horizontal], 4)
+			.cornerRadius(10)
+			.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray))
+			.padding([.horizontal], 24)
 			
 			Button(action: {
 				self.viewModel.experimentId = self.experimentId
@@ -49,6 +50,10 @@ struct LogInView: View {
 				Text("Start game")
 			}
             .disabled(userId.isEmpty || experimentId.isEmpty)
+			.foregroundColor(.white)
+			.padding()
+			.background((userId.isEmpty || experimentId.isEmpty) ? Color.gray : Color.accentColor)
+			.cornerRadius(8)
 			
 			Button(action: {
 				self.viewModel.reset()
@@ -57,7 +62,7 @@ struct LogInView: View {
 			}) {
 				Text("Skip >>")
 			}
-            
+			
             Text(self.viewModel.configuration?.errorMsg ?? "").foregroundColor(Color.red)
 		}
 	}
