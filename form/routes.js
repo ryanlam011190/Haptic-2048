@@ -66,6 +66,7 @@ router.post('/haptics_configuration', uploadS3.array('file', 3), csrfProtection,
         "short_haptics_file": req.files[1].location,
         "user_instructions_image": req.files[2].location,
         "survey_link": req.body.survey_link,
+        "max_score": req.body.max_score,
       },
       "max_score": req.body.max_score,
     }).then( response => {
