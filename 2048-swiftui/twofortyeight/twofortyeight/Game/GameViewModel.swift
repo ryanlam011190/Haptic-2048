@@ -43,7 +43,7 @@ class GameViewModel: ObservableObject {
         didSet {
             print("set config_id: \(config_id)")
             self.configuration = Configuration(config_id: self.config_id!)
-            if let max_score = self.configuration?.JSONconfig?.max_score {
+            if let max_score_string = self.configuration?.JSONconfig?.max_score, let max_score = Int(max_score_string) {
                 self.MAX_SCORE = max_score
             }
             if !configHiddenVariablesDone {
@@ -162,7 +162,7 @@ struct ConfigBody: Codable {
     let short_haptics_file: URL
     var survey_link: String
     let instructions: String
-    let max_score: Int?
+    let max_score: String?
 }
 
 class Configuration {
@@ -172,6 +172,7 @@ class Configuration {
     var downloaded = false {
         didSet {
             if self.downloaded && oldValue == false {
+                errorMsg = nil
                 self.downloadCondition.signal()
             }
         }
@@ -222,14 +223,13 @@ class Configuration {
         request.httpBody = bodyData
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
-                print("DATAAAA")
-                print(data)
                 let jsonDecoder = JSONDecoder()
                 do {
                     self.JSONconfig = try jsonDecoder.decode(ConfigBody.self, from: data)
                     self.downloadContent()
                 }
                 catch {
+                    print(error)
                     if(error.localizedDescription == "The data couldn’t be read because it is missing.") {
                         self.errorMsg = "invalid experiment id"
                     } else {
