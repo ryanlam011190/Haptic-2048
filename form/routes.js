@@ -12,10 +12,6 @@ const AWS = require('aws-sdk');
 const S3_BUCKET = "hapticsuseruploads";
 AWS.config.region = 'us-west-1';
 
-AWS_ACCESS_KEY = "AKIA23M6M2XGRC477AFT";
-AWS_SECRET_KEY = "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";
-
-
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
