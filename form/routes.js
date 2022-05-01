@@ -86,10 +86,10 @@ async function sendEmail(email, config_id) {
     auth: {
       type: 'OAuth2',
       user: 'hapticstestplatform@gmail.com',
-      clientId: '837020197744-174sc7k0ibsbmqt5ahg1emt8pc7pu513.apps.googleusercontent.com',
-      clientSecret: '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',
-      refreshToken: '1//04b3ySiYrt9CWCgYIARAAGAQSNwF-L9IrmfB2O28zuF2Ab9K4Ewhbhc8gV8cepCYF7ozFGeeWL7XgV5uend5Hm3KJLSLtWM-W9hs',
-      accessToken: 'ya29.A0ARrdaM8K5p9HfGieOEOSnpIw3rF5C3DioQ3A6D6k6WSO4QJg_OjNieAWwB7rNyOtk4t7W3fE6vOuq21wdtaPAx5fjrknZpMBNDxJOhLYwPOX6Y6Nwi6bLFRW231OUP4H188pbjDKt7OOBR7tbpwmpq0Ykbif',
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+      accessToken: process.env.GOOGLE_OAUTH_ACCESS_TOKEN,
       expires: 12345
   },
   });
