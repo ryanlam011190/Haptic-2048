@@ -9,7 +9,7 @@ const axios = require('axios');
 const multer  = require('multer');
 const multers3 = require('multer-s3');
 const AWS = require('aws-sdk');
-const S3_BUCKET = "hapticsuseruploads";
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
 AWS.config.region = 'us-west-1';
 
 const s3 = new AWS.S3({
